@@ -1,0 +1,44 @@
+* {
+	background-color: #0f0f0f;
+	color: white;
+	width: 400px;
+}
+
+body {
+	margin: 20px;
+}
+
+.listContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	width: 90%;
+
+	background-color: #5a5a5a;
+}
+
+.progressBar {
+	max-width: 100%;
+	height: 10px;
+	background-color: #0077ff;
+	border-radius: 0px 10px 10px 0px;
+}
+
+.item {
+	display: flex;
+	flex-direction: row;
+}
+
+.elementName {
+	font-size: 14px;
+	text-decoration: none;
+}
+
+.elementValue {
+	justify-content: left;
+}
