@@ -1,16 +1,32 @@
 const timers = [];
+var total = 0;
 
-function displayItems (timers) {
+chrome.storage.local.get(null).then((result) => {
+	for (const [key, value] of Object.entries(result)) {
+		if (key.startsWith("timetracking://")) {
+			timers.push({ key, value });
+		}
+	}
+
+	timers.forEach(element => {
+		total = total + element["value"];
+	})
+
+	displayItems(timers)
+
+	let counter = document.createElement("a");
+	counter.className = "counter";
+	counter.textContent = dateDisplay(total) + " passé sur " + timers.length + " sites";
+	document.body.appendChild(counter);
+});
+
+function displayItems(timers) {
 	document.getElementById("listContainer").innerHTML = "";
 	timers.sort((a, b) => b.value - a.value);
 
 	var i = 0;
-	var total = 0;
 	timers.forEach(element => {
-		total = total + element["value"];
-	})
-	timers.forEach(element => {
-		if (i<10) {
+		if (i < 10) {
 			let title = element["key"].replace("timetracking://", "");
 			let value = element["value"];
 
@@ -69,21 +85,6 @@ function displayItems (timers) {
 		document.getElementById("listContainer").append(noResults);
 	};
 };
-
-chrome.storage.local.get(null).then((result) => {
-	for (const [key, value] of Object.entries(result)) {
-		if (key.startsWith("timetracking://")) {
-			timers.push({ key, value });
-		}
-	}
-
-	displayItems(timers)
-
-	let counter = document.createElement("a");
-	counter.className = "counter";
-	counter.textContent = dateDisplay(total) + " passé sur " + timers.length + " sites";
-	document.body.appendChild(counter);
-});
 
 function dateDisplay(seconds) {
 	seconds = Number(seconds);
