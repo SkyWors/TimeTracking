@@ -1,11 +1,7 @@
 const timers = [];
 
-chrome.storage.local.get(null).then((result) => {
-	for (const [key, value] of Object.entries(result)) {
-		if (key.startsWith("timetracking://")) {
-			timers.push({ key, value });
-		}
-	}
+function displayItems (timers) {
+	document.getElementById("listContainer").innerHTML = "";
 	timers.sort((a, b) => b.value - a.value);
 
 	var i = 0;
@@ -63,6 +59,25 @@ chrome.storage.local.get(null).then((result) => {
 			i++;
 		}
 	});
+
+	if (timers.length === 0) {
+		let noResults = document.createElement("a");
+		noResults.className = "noResults";
+		noResults.textContent = "Aucun résultat";
+
+		document.getElementById("listContainer").append(noResults);
+	};
+};
+
+chrome.storage.local.get(null).then((result) => {
+	for (const [key, value] of Object.entries(result)) {
+		if (key.startsWith("timetracking://")) {
+			timers.push({ key, value });
+		}
+	}
+
+	displayItems(timers)
+
 	let counter = document.createElement("a");
 	counter.className = "counter";
 	counter.textContent = timers.length + " sites visités";
@@ -81,4 +96,9 @@ function secondsToDhms(seconds) {
 	var mDisplay = m > 0 ? m + "min " : "";
 	var sDisplay = s > 0 ? s + "s" : "";
 	return dDisplay + hDisplay + mDisplay + sDisplay;
-}
+};
+
+document.getElementById("searchBar").addEventListener("input", (event) => {
+	const filteredTimers = timers.filter(element => element["key"].includes(event.target.value));
+	displayItems(filteredTimers);
+});

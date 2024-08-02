@@ -8,6 +8,21 @@ body {
 	margin: 15px;
 }
 
+.searchBar {
+	width: 89%;
+	height: 30px;
+	padding-left: 10px;
+	background-color: #292929;
+	border: 0;
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+
+.searchBar:focus {
+	outline: none;
+}
+
 .listContainer {
 	display: flex;
 	flex-direction: column;
@@ -57,4 +72,11 @@ body {
 	margin: 12px 0px 0px 40px;
 	text-align: left;
 	font-size: 16px
+}
+
+.noResults {
+	margin-top: 15px;
+	margin-left: 130px;
+	color: rgb(124, 124, 124);
+	font-size: 16px;
 }
