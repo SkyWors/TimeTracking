@@ -46,7 +46,7 @@ chrome.storage.local.get(null).then((result) => {
 			elementName.textContent = title;
 
 			let elementValue = document.createElement("a");
-			elementValue.textContent = secondsToDhms(value);
+			elementValue.textContent = dateDisplay(value);
 
 			let titleContainer = document.createElement("div");
 			titleContainer.className = "titleContainer";
@@ -65,11 +65,11 @@ chrome.storage.local.get(null).then((result) => {
 	});
 	let counter = document.createElement("a");
 	counter.className = "counter";
-	counter.textContent = timers.length + " sites visités";
+	counter.textContent = dateDisplay(total) + " passé sur " + timers.length + " sites";
 	document.body.appendChild(counter);
 });
 
-function secondsToDhms(seconds) {
+function dateDisplay(seconds) {
 	seconds = Number(seconds);
 	var d = Math.floor(seconds / (3600*24));
 	var h = Math.floor(seconds % (3600*24) / 3600);
