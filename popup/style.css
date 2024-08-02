@@ -2,6 +2,7 @@
 	background-color: #0f0f0f;
 	color: white;
 	width: 400px;
+	user-select: none;
 }
 
 body {
@@ -40,6 +41,15 @@ body {
 .elementName {
 	font-size: 14px;
 	text-decoration: none;
+	word-wrap: normal;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.elementValue {
+	font-size: 14px;
+	margin-left: 10px;
 }
 
 .titleContainer {

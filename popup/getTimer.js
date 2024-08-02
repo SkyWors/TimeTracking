@@ -46,6 +46,7 @@ chrome.storage.local.get(null).then((result) => {
 			elementName.textContent = title;
 
 			let elementValue = document.createElement("a");
+			elementValue.className = "elementValue";
 			elementValue.textContent = dateDisplay(value);
 
 			let titleContainer = document.createElement("div");
