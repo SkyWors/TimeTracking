@@ -5,7 +5,7 @@
 }
 
 body {
-	margin: 20px;
+	margin: 15px;
 }
 
 .listContainer {
@@ -16,9 +16,12 @@ body {
 
 .container {
 	display: flex;
-	flex-direction: column;
-	width: 90%;
+	flex-direction: row;
+	gap: 10px;
+}
 
+.progressBarContainer {
+	width: 80%;
 	background-color: #5a5a5a;
 }
 
@@ -31,7 +34,7 @@ body {
 
 .item {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 }
 
 .elementName {
@@ -39,6 +42,19 @@ body {
 	text-decoration: none;
 }
 
-.elementValue {
-	justify-content: left;
+.titleContainer {
+	display: flex;
+	flex-direction: row;
+}
+
+.icon {
+	width: 32px;
+	height: 32px;
+}
+
+.counter {
+	display: flex;
+	margin: 12px 0px 0px 40px;
+	text-align: left;
+	font-size: 16px
 }

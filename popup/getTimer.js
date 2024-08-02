@@ -18,12 +18,23 @@ chrome.storage.local.get(null).then((result) => {
 			let title = element["key"].replace("timetracking://", "");
 			let value = element["value"];
 
+			let url = new URL(chrome.runtime.getURL("/_favicon/"));
+			url.searchParams.set("pageUrl", title);
+			url.searchParams.set("size", 64);
+			let icon = document.createElement("img");
+			icon.src = url;
+			icon.className = "icon";
+
 			let container = document.createElement("div");
 			container.className = "container";
 
 			let progressBar = document.createElement("div");
 			progressBar.className = "progressBar";
 			progressBar.style.width = value/total*100 + "%";
+
+			let progressBarContainer = document.createElement("div");
+			progressBarContainer.className = "progressBarContainer";
+			progressBarContainer.appendChild(progressBar)
 
 			let item = document.createElement("div");
 			item.className = "item";
@@ -35,19 +46,27 @@ chrome.storage.local.get(null).then((result) => {
 			elementName.textContent = title;
 
 			let elementValue = document.createElement("a");
-			elementValue.className = "elementValue";
 			elementValue.textContent = secondsToDhms(value);
 
-			item.appendChild(elementName);
-			item.appendChild(elementValue);
+			let titleContainer = document.createElement("div");
+			titleContainer.className = "titleContainer";
+			titleContainer.appendChild(elementName);
+			titleContainer.appendChild(elementValue);
 
+			item.appendChild(titleContainer);
+			item.appendChild(progressBarContainer);
+
+			container.appendChild(icon);
 			container.appendChild(item);
-			container.appendChild(progressBar);
 
 			document.getElementById("listContainer").append(container);
 			i++;
 		}
 	});
+	let counter = document.createElement("a");
+	counter.className = "counter";
+	counter.textContent = timers.length + " sites visités";
+	document.body.appendChild(counter);
 });
 
 function secondsToDhms(seconds) {
@@ -57,9 +76,9 @@ function secondsToDhms(seconds) {
 	var m = Math.floor(seconds % 3600 / 60);
 	var s = Math.floor(seconds % 60);
 
-	var dDisplay = d > 0 ? d + (d == 1 ? " day, " : " days, ") : "";
-	var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
-	var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
-	var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+	var dDisplay = d > 0 ? d + "d, " : "";
+	var hDisplay = h > 0 ? h + "h " : "";
+	var mDisplay = m > 0 ? m + "min " : "";
+	var sDisplay = s > 0 ? s + "s" : "";
 	return dDisplay + hDisplay + mDisplay + sDisplay;
 }

@@ -13,7 +13,8 @@
 
 	"permissions": [
 		"scripting",
-		"storage"
+		"storage",
+		"favicon"
 	],
 
 	"content_scripts": [
