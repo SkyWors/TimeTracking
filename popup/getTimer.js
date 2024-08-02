@@ -1,4 +1,5 @@
 const timers = [];
+var total = 0;
 
 chrome.storage.local.get(null).then((result) => {
 	for (const [key, value] of Object.entries(result)) {
@@ -6,15 +7,26 @@ chrome.storage.local.get(null).then((result) => {
 			timers.push({ key, value });
 		}
 	}
-	timers.sort((a, b) => b.value - a.value);
 
-	var i = 0;
-	var total = 0;
 	timers.forEach(element => {
 		total = total + element["value"];
 	})
+
+	displayItems(timers)
+
+	let counter = document.createElement("a");
+	counter.className = "counter";
+	counter.textContent = dateDisplay(total) + " passé sur " + timers.length + " sites";
+	document.body.appendChild(counter);
+});
+
+function displayItems(timers) {
+	document.getElementById("listContainer").innerHTML = "";
+	timers.sort((a, b) => b.value - a.value);
+
+	var i = 0;
 	timers.forEach(element => {
-		if (i<10) {
+		if (i < 10) {
 			let title = element["key"].replace("timetracking://", "");
 			let value = element["value"];
 
@@ -64,11 +76,15 @@ chrome.storage.local.get(null).then((result) => {
 			i++;
 		}
 	});
-	let counter = document.createElement("a");
-	counter.className = "counter";
-	counter.textContent = dateDisplay(total) + " passé sur " + timers.length + " sites";
-	document.body.appendChild(counter);
-});
+
+	if (timers.length === 0) {
+		let noResults = document.createElement("a");
+		noResults.className = "noResults";
+		noResults.textContent = "Aucun résultat";
+
+		document.getElementById("listContainer").append(noResults);
+	};
+};
 
 function dateDisplay(seconds) {
 	seconds = Number(seconds);
@@ -82,4 +98,9 @@ function dateDisplay(seconds) {
 	var mDisplay = m > 0 ? m + "min " : "";
 	var sDisplay = s > 0 ? s + "s" : "";
 	return dDisplay + hDisplay + mDisplay + sDisplay;
-}
+};
+
+document.getElementById("searchBar").addEventListener("input", (event) => {
+	const filteredTimers = timers.filter(element => element["key"].includes(event.target.value));
+	displayItems(filteredTimers);
+});
