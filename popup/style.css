@@ -1,16 +1,20 @@
 * {
 	background-color: #0f0f0f;
 	color: white;
-	width: 400px;
 	user-select: none;
 }
 
+::-webkit-scrollbar {
+	display: none;
+}
+
 body {
+	width: 364px;
 	margin: 15px;
 }
 
 .searchBar {
-	width: 89%;
+	width: 96%;
 	height: 30px;
 	padding-left: 10px;
 	background-color: #292929;
@@ -37,8 +41,9 @@ body {
 }
 
 .progressBarContainer {
+	margin-top: 3px;
 	width: 80%;
-	background-color: #5a5a5a;
+	background-color: #414141;
 }
 
 .progressBar {
@@ -60,16 +65,20 @@ body {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	max-width: 200px;
 }
 
 .elementValue {
 	font-size: 14px;
 	margin-left: 10px;
+	position: absolute;
+	right: 20px;
 }
 
 .titleContainer {
 	display: flex;
 	flex-direction: row;
+	width: 400px;
 }
 
 .icon {
@@ -79,9 +88,9 @@ body {
 
 .counter {
 	display: flex;
-	margin-top: 12px;
 	text-align: left;
-	font-size: 16px
+	font-size: 16px;
+	margin-right: 45px;
 }
 
 .noResults {
@@ -89,4 +98,36 @@ body {
 	margin-left: 130px;
 	color: rgb(124, 124, 124);
 	font-size: 16px;
+}
+
+.footer {
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+	margin-top: 15px;
+}
+
+.showAll {
+	border: 0;
+	border-radius: 20px;
+	background-color: #414141;
+	width: 30px;
+	height: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	transition: 200ms;
+	position: fixed;
+	bottom: 10px;
+	box-shadow: 0 0 10px 1px #00000075;
+}
+
+.showAll:hover {
+	background-color: #6b6b6b;
+	transition: 200ms;
+}
+
+.showAll svg {
+	background: none;
 }
